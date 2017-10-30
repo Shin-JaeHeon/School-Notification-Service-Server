@@ -8,6 +8,7 @@ class Account(models.Model):
     level = models.SmallIntegerField(default=0)
     token = models.TextField()
     rome_name = models.TextField()
+    fcm = models.TextField()
 
     class Meta:
         abstract = True
@@ -15,10 +16,12 @@ class Account(models.Model):
 
 class StudentAccount(Account):
     student_number = models.CharField(max_length=6)
+    school = models.CharField(max_length=20)
 
 
 class TeacherAccount(Account):
-    pass
+        is_home = models.BooleanField()
+        pass
 
 
 class Room(models.Model):
@@ -35,3 +38,10 @@ class Schedule(models.Model):
     month = models.SmallIntegerField(default=0)
     date = models.SmallIntegerField(default=0)
     owner = models.ForeignKey(TeacherAccount)
+
+
+class Meal(models.Model):
+    owner = models.ForeignKey(StudentAccount)
+    hour = models.IntegerField()
+    m = models.IntegerField()
+    type = models.CharField(max_length=1)
