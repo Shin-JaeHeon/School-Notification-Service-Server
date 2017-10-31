@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>리스트</title>
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Members
+            <div class="wrapper">
+            {% csrf_token %}
+                {% for m in wait %}
+                    <form method="post" action="./">
+                        <div class="info">
+                            <div class="name">
+                                <h3>{{ m.name }}</h3>
+                                <input type="hidden" name="name" value="{{ m.name }}">
+                            </div>
+                            <div class="num">
+                                <h5>{{ m.number }}</h5>
+                                <input type="hidden" name="number" value="{{ m.number }}">
+                            </div>
+                            <div class="buttons">
+                                <div class="clear">
+                                    <button type="submit" name="type" value="clear">
+                                        <i class="material-icons">clear</i>
+                                    </button>
+                                </div>
+                                <div class="grant">
+                                    <button type="submit" name="type" value="clear">
+                                        <i class="material-icons">done</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                {% endfor %}
+            </div>
+        </h1>
+    </div>
+</div>
+</body>
+</html>

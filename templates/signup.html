@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/flexboxgrid.min.css" %}">
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <div class="wrapper">
+            <h1 class="title" style="text-align:center">
+                Sign Up
+            </h1>
+            <form method="post" action="./">
+                {% csrf_token %}
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="radio" id="homeroom" name="is_home" value="home">
+                        <label for="homeroom">담임</label>
+                        <input type="radio" id="subject" name="is_home" value="subject">
+                        <label for="subject">교과</label>
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="text" placeholder="Name" id="input-text" name="name">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="email" placeholder="Email" id="input-email" name="email">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="password" placeholder="Password" id="input-pw" name="pw">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="password" placeholder="Confirm Password">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="text" placeholder="Room Name" id="room" name="room">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <input type="submit" name="submit" value="Create Account">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', function () {
+        var homeroom = document.getElementById('homeroom');
+        var subject = document.getElementById('subject');
+        var room = document.getElementById('room');
+        if (window.Notification && Notification.permission !== "granted") {
+            Notification.requestPermission(function (status) {
+                if (Notification.permission !== status) {
+                    Notification.permission = status;
+                }
+            });
+        }
+        subject.addEventListener('click', function () {
+            if (window.Notification && Notification.permission === "granted") {
+                if (status === "granted") {
+                    var n = new Notification("교과선생님", {
+                        body: '교과선생님이시면 방 이름을 적으지 않으셔도 됩니다.'
+                    });
+                } else if (window.Notification && Notification.permission !== "denied") {
+                    Notification.requestPermission(function (status) {
+                        if (status === "granted") {
+                            var n = new Notification("교과선생님", {
+                                body: '교과선생님이시면 방 이름을 적으지 않으셔도 됩니다.'
+                            });
+                        }
+                    });
+                }
+            }
+            ;
+        });
+        homeroom.addEventListener('click', function () {
+            if (window.Notification && Notification.permission === "granted") {
+                if (status === "granted") {
+                    var n = new Notification("담임선생님", {
+                        body: '방 이름은 "[대한고] 3-2"같은 이름이 좋습니다.'
+                    });
+                } else if (window.Notification && Notification.permission !== "denied") {
+                    Notification.requestPermission(function (status) {
+                        if (status === "granted") {
+                            var n = new Notification("담임선생님", {
+                                body: '방 이름은 "[대한고] 3-2"같은 이름이 좋습니다.'
+                            });
+                        }
+                    });
+                }
+            }
+            ;
+        });
+        room.addEventListener('click', function () {
+            if (window.Notification && Notification.permission === "granted") {
+                if (status === "granted") {
+                    var n = new Notification("담임선생님", {
+                        body: '방 이름은 "[대한고] 3-2"같은 이름이 좋습니다.'
+                    });
+                } else if (window.Notification && Notification.permission !== "denied") {
+                    Notification.requestPermission(function (status) {
+                        if (status === "granted") {
+                            var n = new Notification("담임선생님", {
+                                body: '방 이름은 "[대한고] 3-2"같은 이름이 좋습니다.'
+                            });
+                        }
+                    });
+                }
+            }
+            ;
+        });
+    });
+</script>
+</body>
+
+</html>

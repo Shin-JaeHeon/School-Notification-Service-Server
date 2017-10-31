@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>School Notification Service - 알림 전송</title>
+    <link rel="stylesheet" href="{% static "css/send.css" %}">
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/flexboxgrid.min.css" %}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="wrapper">
+            <h1 style="text-align:center">Send Notification</h1>
+            <form method="post" action="./">
+                {% csrf_token %}
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="text" id="subject" name="title" placeholder="제목">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="text" id="room" name="room" placeholder="반 이름">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="number" id="year" name="year" placeholder="년" min="2017" max="2018">
+                    </div>
+                    <div class="field">
+                        <input type="number" id="month" name="month" placeholder="월" min="1" max="12">
+                    </div>
+                    <div class="field">
+                        <input type="number" id="date" name="date" placeholder="일" min="1" max="31">
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <textarea name="msg" id="des" cols="25" rows="5" placeholder="공지내용"></textarea>
+                    </div>
+                </div>
+                <div class="row center-xs">
+                    <div class="field">
+                        <input type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    window.addEventListener('load', function () {
+        if (window.Notification && Notification.permission !== "granted") {
+            Notification.requestPermission(function (status) {
+                if (Notification.permission !== status) {
+                    Notification.permission = status;
+                }
+            });
+        }
+        var input = document.getElementById('subject');
+        input.addEventListener('focus', function () {
+            if (window.Notification && Notification.permission === "granted") {
+                if (status === "granted") {
+                    var n = new Notification("숙제 공지를 보낼 경우", {
+                        body: '숙제 공지는 과목이름으로 적어주시길 바랍니다.'
+                    });
+                } else if (window.Notification && Notification.permission !== "denied") {
+                    Notification.requestPermission(function (status) {
+                        if (status === "granted") {
+                            var n = new Notification("숙제 공지를 보낼 경우", {
+                                body: '숙제 공지는 과목이름으로 적어주시길 바랍니다.'
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

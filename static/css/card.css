@@ -1,0 +1,18 @@
+.card {
+    margin: 0;
+    width: 450px;
+    height: 500px;
+    min-height: 500px;
+    border: 1px solid #eee;
+    -webkit-box-shadow: 0px 3px 30px 3px rgba(207, 205, 207, 0.76);
+    -moz-box-shadow: 0px 3px 30px 3px rgba(207, 205, 207, 0.76);
+    box-shadow: 0px 3px 30px 3px rgba(207, 205, 207, 0.76);
+  }
+
+@media screen and (max-width:430px) and (max-height:460px) {
+    .card {
+      position: absolute;
+      margin-top: 100px;
+      margin-bottom: 30px;
+    }
+  }
