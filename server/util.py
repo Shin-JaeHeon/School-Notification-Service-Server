@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from pyfcm import FCMNotification
 import hashlib
 import time
-from server.models import TeacherAccount, StudentAccount
+from server.models import StudentAccount, SchoolAccount
 from django.core.mail import EmailMessage
 
 
@@ -12,12 +12,17 @@ def create_response(msg):
 
 def send_fcm(to, title, msg, data):
     push_service = FCMNotification(
-        api_key="AAAAycRHOh8:APA91bGxatLE_w6SojzWQiLtdSioOTDu5qXRSGNw6QZ1X2CXpVoJr7qx5YfYCetD2nISWziAwyqSs9AKxBQ8A2zCxOQUxjpuT4JKLqNc0svrSKIo2VMgWhcppAPepgUvNJcF9brYwVoOg")
-    push_service.notify_single_device(registration_id=to, message_title=title, message_body=msg, data_message=data)
+        api_key="AAAAycRHOh8:APA91bFSF_WhlbqRqtSVPDm7u3sfTLZUcokTfLxtH_02CuvvgySc-3bDBhIfk-vGB1-9ELFhnh5hfpw4StSDMOExu_jZSWsRNI5-OAF3ZOCV1DV87cZHzN_QaFNCLsLL3uiT3FbAsXGD")
+    print(to + "," + title)
+    extra_kwargs = {
+        'priority': 'high'
+    }
+    res = push_service.notify_single_device(registration_id=to, message_title=title, message_body=msg, data_message=data, extra_kwargs=extra_kwargs)
+    print(res)
 
 
 def get_account(acoount_type, email, flag=False):
-    acoount_type = StudentAccount if acoount_type == "st" else TeacherAccount if acoount_type == "tch" else None
+    acoount_type = StudentAccount if acoount_type == "st" else SchoolAccount if acoount_type == "sch" else None
     if acoount_type is None:
         return None
     o = acoount_type.objects
@@ -35,7 +40,7 @@ def get_token(uid):
 def is_login(req):
     if not req.session.get('token', False):
         return 3
-    account = get_account(TeacherAccount, req.session.get('token'), True)
+    account = get_account(SchoolAccount, req.session.get('token'), True)
     if account is None:
         return 3
     elif account.level == 0:

@@ -109,6 +109,6 @@ EMAIL_HOST_PASSWORD = '3f8090675df3af8d460cda71a05ccca1'
 EMAIL_USE_TLS = True
 DEFAULT_EMAIL_FROM = 'schoolnotificationservice@gmail.com'
 CRONJOBS = [
-    ('* * * * *', 'server.cron.my_scheduled_job')
+    ('* * * * *', 'cron.my_scheduled_job')
 ]
 # SECURE_SSL_REDIRECT = True

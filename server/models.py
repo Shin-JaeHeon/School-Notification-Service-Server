@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Account(models.Model):
+class StudentAccount(models.Model):
     email = models.CharField(max_length=50, primary_key=True)
     password = models.TextField(max_length=600)
     name = models.CharField(max_length=20)
@@ -9,26 +9,22 @@ class Account(models.Model):
     token = models.TextField()
     rome_name = models.TextField()
     fcm = models.TextField()
-
-    class Meta:
-        abstract = True
-
-
-class StudentAccount(Account):
     student_number = models.CharField(max_length=6)
     school = models.CharField(max_length=20)
 
 
-class TeacherAccount(Account):
-        is_home = models.BooleanField()
-        pass
+class SchoolAccount(models.Model):
+    name = models.CharField(max_length=30)
+    owner = models.CharField(max_length=30)
+    email = models.CharField(max_length=50, primary_key=True)
+    password = models.TextField(max_length=600)
 
 
 class Room(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
-    owner = models.ForeignKey(TeacherAccount)
-    wait_members = models.TextField()
-    members = models.TextField()
+    owner = models.ForeignKey(SchoolAccount)
+    wait_members = models.TextField(null=True)
+    members = models.TextField(null=True)
 
 
 class Schedule(models.Model):
@@ -44,4 +40,5 @@ class Meal(models.Model):
     owner = models.ForeignKey(StudentAccount)
     hour = models.IntegerField()
     m = models.IntegerField()
-    type = models.CharField(max_length=1)
+    type = models.CharField(max_length=2)
+    log = models.IntegerField(default=0)
